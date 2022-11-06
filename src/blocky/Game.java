@@ -38,7 +38,7 @@ public class Game
             color = Block.COLORS[randomColorIndex];
             
             block = new Block(color, childrenLevel, childrenSize, parent);
-            
+                       
             children.add(block);
         }
         

@@ -141,10 +141,16 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(0);
                 
+//                if(!child.getChildren().isEmpty())
+//                {
+//                    highlightBlock(child, row, column);
+//                }
                 if(game.getHighlightedBlock() != null)
                 {
+                    game.getHighlightedBlock().setHighlighted(false);
                     game.setHighlightedBlock(null);
                 }
+                child.setHighlighted(true);
                 game.setHighlightedBlock(child);
             }
             
@@ -152,10 +158,13 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             else if(row < halfBlockSize && column > halfBlockSize)
             {
                 child = children.get(1);
+                
                 if(game.getHighlightedBlock() != null)
                 {
+                    game.getHighlightedBlock().setHighlighted(false);
                     game.setHighlightedBlock(null);
                 }
+                child.setHighlighted(true);
                 game.setHighlightedBlock(child);
             }
             
@@ -163,10 +172,13 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             else if(row > halfBlockSize && column < halfBlockSize)
             {
                 child = children.get(2);
+                
                 if(game.getHighlightedBlock() != null)
                 {
+                    game.getHighlightedBlock().setHighlighted(false);
                     game.setHighlightedBlock(null);
                 }
+                child.setHighlighted(true);
                 game.setHighlightedBlock(child);
             }
             
@@ -174,10 +186,13 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             else if(row > halfBlockSize && column > halfBlockSize)
             {
                 child = children.get(3);
+                
                 if(game.getHighlightedBlock() != null)
                 {
+                    game.getHighlightedBlock().setHighlighted(false);
                     game.setHighlightedBlock(null);
                 }
+                child.setHighlighted(true);
                 game.setHighlightedBlock(child);
             }
         }
@@ -206,8 +221,14 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             
             if (highlightedBlock != null)
             {
-                // TODO - complete the rest of this method.
+                // Unhighlight block
+                highlightedBlock.setHighlighted(false);
+                
+                // Find parent and set highlight
                 Block parent = highlightedBlock.getParent();
+                parent.setHighlighted(true);
+                
+                // Set game highlight
                 game.setHighlightedBlock(parent);
                 
                 display();
