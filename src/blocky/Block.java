@@ -49,7 +49,7 @@ public class Block
     public final static int MAX_SIZE = 640;
     
     //highlighted:
-    //    True iff the user has selected this block for action.
+    //    True if the user has selected this block for action.
     private boolean highlighted;
     
     //children:

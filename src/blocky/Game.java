@@ -16,15 +16,46 @@ public class Game
     
     public Game()
     {
-        root = createTestBoard();
-        //root = new Block();
-        //createRandomChildren(root);
+//        root = createTestBoard();
+        root = new Block();
+        createRandomChildren(root);
         highlightedBlock = null;
     }
     
     public void createRandomChildren(Block parent)
     {
-        // TODO - complete this method.
+        int childrenLevel = parent.getLevel() + 1;
+        int childrenSize = parent.getSize() / 2;
+        
+        List<Block> children = new ArrayList<>();
+        Block block;
+        Color color;
+        
+        //Create four blocks with random color
+        for(int i = 0; i < 4; i++)
+        {
+            int randomColorIndex = (int) (Math.random() * Block.COLORS.length);
+            color = Block.COLORS[randomColorIndex];
+            
+            block = new Block(color, childrenLevel, childrenSize, parent);
+            
+            children.add(block);
+        }
+        
+        parent.setChildren(children);
+        
+        if(childrenLevel < Block.MAX_DEPTH)
+        {
+            if (Math.random() < Math.exp(-0.25 * childrenLevel))
+            {
+                for(Block child : children)
+                {
+                    createRandomChildren(child);
+                }
+            }
+            
+        }
+        
     }
     
     public Block createTestBoard()

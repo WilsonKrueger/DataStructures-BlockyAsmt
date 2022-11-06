@@ -128,7 +128,60 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
     
     private void highlightBlock(Block block, int row, int column)
     {
-        // TODO - complete this method.
+        List<Block> children;
+        Block child;
+        int halfBlockSize = block.getSize() / 2;
+        
+        if(!block.getChildren().isEmpty())
+        {
+            children = block.getChildren();
+            
+            // First child
+            if(row < halfBlockSize && column < halfBlockSize)
+            {
+                child = children.get(0);
+                
+                if(game.getHighlightedBlock() != null)
+                {
+                    game.setHighlightedBlock(null);
+                }
+                game.setHighlightedBlock(child);
+            }
+            
+            // Second child
+            else if(row < halfBlockSize && column > halfBlockSize)
+            {
+                child = children.get(1);
+                if(game.getHighlightedBlock() != null)
+                {
+                    game.setHighlightedBlock(null);
+                }
+                game.setHighlightedBlock(child);
+            }
+            
+            // Third child
+            else if(row > halfBlockSize && column < halfBlockSize)
+            {
+                child = children.get(2);
+                if(game.getHighlightedBlock() != null)
+                {
+                    game.setHighlightedBlock(null);
+                }
+                game.setHighlightedBlock(child);
+            }
+            
+            // Fourth child
+            else if(row > halfBlockSize && column > halfBlockSize)
+            {
+                child = children.get(3);
+                if(game.getHighlightedBlock() != null)
+                {
+                    game.setHighlightedBlock(null);
+                }
+                game.setHighlightedBlock(child);
+            }
+        }
+        
     }
     
     private void highlightBlock(MouseEvent e)
@@ -154,6 +207,8 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             if (highlightedBlock != null)
             {
                 // TODO - complete the rest of this method.
+                Block parent = highlightedBlock.getParent();
+                game.setHighlightedBlock(parent);
                 
                 display();
             }
