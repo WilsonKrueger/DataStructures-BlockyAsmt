@@ -134,8 +134,10 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
         
         Block blockToHighlight = null; 
         
+        // If the block has children
         if(!block.getChildren().isEmpty())
         {
+            // Retrieve the children
             children = block.getChildren();
             
             // First child
@@ -143,10 +145,12 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(0);
                 
+                // Check the child's children if applicable
                 if(!child.getChildren().isEmpty())
                 {
                     highlightBlock(child, row, column);
                 }
+                // The child doesn't have children, therefore the child should be highlighted
                 else
                 {
                     blockToHighlight = child;
@@ -158,11 +162,16 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(1);
                 
+                // Check the child's children if applicable
                 if(!child.getChildren().isEmpty())
                 {
+                    // Remove the half block size from the column because the 
+                    // column is larger than half the block. Since we are narrowing
+                    // the scope down, we also want the rows and columns to reflect that.
                     column -= halfBlockSize;
                     highlightBlock(child, row, column);
                 }
+                // The child doesn't have children, therefore the child should be highlighted
                 else
                 {
                     blockToHighlight = child;
@@ -174,11 +183,16 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(2);
                 
+                // Check the child's children if applicable
                 if(!child.getChildren().isEmpty())
                 {
+                    // Remove the half block size from the row because the 
+                    // row is larger than half the block. Since we are narrowing
+                    // the scope down, we also want the rows and columns to reflect that.
                     row -= halfBlockSize;
                     highlightBlock(child, row, column);
                 }
+                // The child doesn't have children, therefore the child should be highlighted
                 else
                 {
                     blockToHighlight = child;
@@ -190,12 +204,17 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(3);
                 
+                // Check the child's children if applicable
                 if(!child.getChildren().isEmpty())
                 {
+                    // Remove the half block size from the row and column because  
+                    // both is larger than half the block. Since we are narrowing
+                    // the scope down, we also want the rows and columns to reflect that.
                     row -= halfBlockSize;
                     column -= halfBlockSize;
                     highlightBlock(child, row, column);
                 }
+                // The child doesn't have children, therefore the child should be highlighted
                 else
                 {
                     blockToHighlight = child;
@@ -203,13 +222,15 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             }
         }
         
+        // If true, a block was found to highlight
         if(blockToHighlight != null)
         {
+            // If another block was already highlighted, unhighlight it.
             if(game.getHighlightedBlock() != null)
             {
                 game.getHighlightedBlock().setHighlighted(false);
-                game.setHighlightedBlock(null);
             }
+            // Highlight the new block
             blockToHighlight.setHighlighted(true);
             game.setHighlightedBlock(blockToHighlight);
         }
@@ -235,6 +256,7 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
         {
             Block highlightedBlock = game.getHighlightedBlock();
             
+            // If the highlighted block was found
             if (highlightedBlock != null)
             {
                 // Unhighlight block
