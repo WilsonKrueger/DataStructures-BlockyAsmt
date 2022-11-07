@@ -132,6 +132,8 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
         Block child;
         int halfBlockSize = block.getSize() / 2;
         
+        Block blockToHighlight = null; 
+        
         if(!block.getChildren().isEmpty())
         {
             children = block.getChildren();
@@ -141,17 +143,14 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(0);
                 
-//                if(!child.getChildren().isEmpty())
-//                {
-//                    highlightBlock(child, row, column);
-//                }
-                if(game.getHighlightedBlock() != null)
+                if(!child.getChildren().isEmpty())
                 {
-                    game.getHighlightedBlock().setHighlighted(false);
-                    game.setHighlightedBlock(null);
+                    highlightBlock(child, row, column);
                 }
-                child.setHighlighted(true);
-                game.setHighlightedBlock(child);
+                else
+                {
+                    blockToHighlight = child;
+                }
             }
             
             // Second child
@@ -159,13 +158,15 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(1);
                 
-                if(game.getHighlightedBlock() != null)
+                if(!child.getChildren().isEmpty())
                 {
-                    game.getHighlightedBlock().setHighlighted(false);
-                    game.setHighlightedBlock(null);
+                    column -= halfBlockSize;
+                    highlightBlock(child, row, column);
                 }
-                child.setHighlighted(true);
-                game.setHighlightedBlock(child);
+                else
+                {
+                    blockToHighlight = child;
+                }
             }
             
             // Third child
@@ -173,13 +174,15 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(2);
                 
-                if(game.getHighlightedBlock() != null)
+                if(!child.getChildren().isEmpty())
                 {
-                    game.getHighlightedBlock().setHighlighted(false);
-                    game.setHighlightedBlock(null);
+                    row -= halfBlockSize;
+                    highlightBlock(child, row, column);
                 }
-                child.setHighlighted(true);
-                game.setHighlightedBlock(child);
+                else
+                {
+                    blockToHighlight = child;
+                }
             }
             
             // Fourth child
@@ -187,16 +190,29 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
             {
                 child = children.get(3);
                 
-                if(game.getHighlightedBlock() != null)
+                if(!child.getChildren().isEmpty())
                 {
-                    game.getHighlightedBlock().setHighlighted(false);
-                    game.setHighlightedBlock(null);
+                    row -= halfBlockSize;
+                    column -= halfBlockSize;
+                    highlightBlock(child, row, column);
                 }
-                child.setHighlighted(true);
-                game.setHighlightedBlock(child);
+                else
+                {
+                    blockToHighlight = child;
+                }
             }
         }
         
+        if(blockToHighlight != null)
+        {
+            if(game.getHighlightedBlock() != null)
+            {
+                game.getHighlightedBlock().setHighlighted(false);
+                game.setHighlightedBlock(null);
+            }
+            blockToHighlight.setHighlighted(true);
+            game.setHighlightedBlock(blockToHighlight);
+        }
     }
     
     private void highlightBlock(MouseEvent e)
