@@ -89,6 +89,72 @@ public class Block
         children = new ArrayList<>();
         parent = inParent;
     }
+    
+    public void swap(boolean isHorizontal)
+    {
+        if(!children.isEmpty())
+        {
+            Block tempChild0 = children.get(0);
+            Block tempChild1 = children.get(1);
+            Block tempChild2 = children.get(2);
+            Block tempChild3 = children.get(3);
+
+            if(isHorizontal)
+            {
+                children.set(0, tempChild1);
+                children.set(1, tempChild0);
+                children.set(2, tempChild3);
+                children.set(3, tempChild2);
+            }
+            else
+            {
+                children.set(0, tempChild2);
+                children.set(1, tempChild3);
+                children.set(2, tempChild0);
+                children.set(3, tempChild1);
+            }
+        }
+    }
+    
+    public void smash(Game game)
+    {
+        //Only smash if not at level 0 or the max depth
+        if(level != 0 && level < MAX_DEPTH)
+        {
+            game.createRandomChildren(this);
+        }
+    }
+    
+    public void rotate(boolean clockwise)
+    {
+        if(!children.isEmpty())
+        {
+            Block tempChild0 = children.get(0);
+            Block tempChild1 = children.get(1);
+            Block tempChild2 = children.get(2);
+            Block tempChild3 = children.get(3);
+            
+            if(clockwise)
+            {
+                children.set(0, tempChild2);
+                children.set(1, tempChild0);
+                children.set(2, tempChild3);
+                children.set(3, tempChild1);
+            }
+            else
+            {
+                children.set(0, tempChild1);
+                children.set(1, tempChild3);
+                children.set(2, tempChild0);
+                children.set(3, tempChild2);
+            }
+            
+            for(Block child : children)
+            {
+                child.rotate(clockwise);
+            }
+        }
+    }
 
     public int getXCoordinate()
     {

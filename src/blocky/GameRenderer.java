@@ -252,31 +252,59 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
     @Override
     public void keyPressed(KeyEvent e)
     {
-        if(e.getKeyCode() == KeyEvent.VK_UP)
+        Block highlightedBlock = game.getHighlightedBlock();
+        
+        // If the highlighted block was found
+        if (highlightedBlock != null)
         {
-            Block highlightedBlock = game.getHighlightedBlock();
-            
-            // If the highlighted block was found
-            if (highlightedBlock != null)
+            if(e.getKeyCode() == KeyEvent.VK_UP)
             {
+                //Block highlightedBlock = game.getHighlightedBlock();
+
                 // Unhighlight block
                 highlightedBlock.setHighlighted(false);
-                
+
                 // Find parent 
                 Block parent = highlightedBlock.getParent();
-                
+
                 if(parent != null)
                 {
                     // Set highlight if parent exists
                     parent.setHighlighted(true);
-                
+
                     // Set game highlight
                     game.setHighlightedBlock(parent);
                 }
-                
-                display();
+
+            }
+
+            if(e.getKeyCode() == KeyEvent.VK_H)
+            {
+                highlightedBlock.swap(true);
+            }
+            
+            if(e.getKeyCode() == KeyEvent.VK_V)
+            {
+                highlightedBlock.swap(false);
+            }
+            
+            if(e.getKeyCode() == KeyEvent.VK_S)
+            {
+                highlightedBlock.smash(game);
+            }
+            
+            if(e.getKeyCode() == KeyEvent.VK_LEFT)
+            {
+                highlightedBlock.rotate(false);
+            }
+            
+            if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+            {
+                highlightedBlock.rotate(true);
             }
         }
+        
+        display();
     }
 
     @Override
