@@ -278,26 +278,31 @@ public class GameRenderer extends JComponent implements MouseListener, KeyListen
 
             }
 
+            // Swap horizontally
             if(e.getKeyCode() == KeyEvent.VK_H)
             {
                 highlightedBlock.swap(true);
             }
             
+            // Swap vertically
             if(e.getKeyCode() == KeyEvent.VK_V)
             {
                 highlightedBlock.swap(false);
             }
             
+            // Smash
             if(e.getKeyCode() == KeyEvent.VK_S)
             {
                 highlightedBlock.smash(game);
             }
             
+            // Rotate counterclockwise
             if(e.getKeyCode() == KeyEvent.VK_LEFT)
             {
                 highlightedBlock.rotate(false);
             }
             
+            // Rotate clockwise
             if(e.getKeyCode() == KeyEvent.VK_RIGHT)
             {
                 highlightedBlock.rotate(true);

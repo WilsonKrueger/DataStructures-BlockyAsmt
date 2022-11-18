@@ -90,15 +90,18 @@ public class Block
         parent = inParent;
     }
     
+    // Method that swaps child elements horizontally or vertically
     public void swap(boolean isHorizontal)
     {
         if(!children.isEmpty())
         {
+            // Retrieve the children
             Block tempChild0 = children.get(0);
             Block tempChild1 = children.get(1);
             Block tempChild2 = children.get(2);
             Block tempChild3 = children.get(3);
 
+            // Swap the children horizontally
             if(isHorizontal)
             {
                 children.set(0, tempChild1);
@@ -106,6 +109,8 @@ public class Block
                 children.set(2, tempChild3);
                 children.set(3, tempChild2);
             }
+            
+            //Swap the children vertically
             else
             {
                 children.set(0, tempChild2);
@@ -116,6 +121,7 @@ public class Block
         }
     }
     
+    // Method to recreate the children of the block
     public void smash(Game game)
     {
         //Only smash if not at level 0 or the max depth
@@ -125,15 +131,18 @@ public class Block
         }
     }
     
+    // Method to rotate the children clockwise or counterclockwise
     public void rotate(boolean clockwise)
     {
         if(!children.isEmpty())
         {
+            // Retrieve the children
             Block tempChild0 = children.get(0);
             Block tempChild1 = children.get(1);
             Block tempChild2 = children.get(2);
             Block tempChild3 = children.get(3);
             
+            // Rotate the blocks clockwise
             if(clockwise)
             {
                 children.set(0, tempChild2);
@@ -141,6 +150,8 @@ public class Block
                 children.set(2, tempChild3);
                 children.set(3, tempChild1);
             }
+            
+            // Rotate the blocks counterclockwise
             else
             {
                 children.set(0, tempChild1);
@@ -149,6 +160,7 @@ public class Block
                 children.set(3, tempChild2);
             }
             
+            // Rotate the children recursively
             for(Block child : children)
             {
                 child.rotate(clockwise);
